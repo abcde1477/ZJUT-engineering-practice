@@ -1,0 +1,8 @@
+prefix=/home/jetson/2024-7-8/ws/install
+
+Name: yahboomcar_carry_robot
+Description: Description of yahboomcar_carry_robot
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: 

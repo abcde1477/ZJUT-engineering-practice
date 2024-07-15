@@ -1,0 +1,10 @@
+<launch>
+    <arg name="lidar_type" value="$(env RPLIDAR_TYPE)" doc="lidar_type [x3,4ROS]"/>
+    <!-- 启动base.launch文件 -->
+    <!-- Launch the base.launch file -->
+    <include file="$(find yahboomcar_laser)/launch/base.launch"/>
+    <!-- 启动激光雷达警卫节点 -->
+    <!-- Activate the Lidar guard node -->
+    <node name='laser_Warning' pkg="yahboomcar_laser" type="laser_Warning_a1.py" required="true" output="screen" if="$(eval arg('lidar_type') == 'a1')"/>
+    <node name='laser_Warning' pkg="yahboomcar_laser" type="laser_Warning_x3.py" required="true" output="screen" if="$(eval arg('lidar_type') == 'x3')"/>
+</launch>

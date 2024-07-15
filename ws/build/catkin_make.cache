@@ -1,0 +1,2 @@
+yahboomcar_carry_robot
+-DCATKIN_DEVEL_PREFIX=/home/jetson/2024-7-8/ws/devel -DCMAKE_INSTALL_PREFIX=/home/jetson/2024-7-8/ws/install -G Unix Makefiles

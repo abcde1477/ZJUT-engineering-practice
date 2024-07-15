@@ -1,0 +1,10 @@
+<launch>
+    <arg name="lidar_type" value="$(env RPLIDAR_TYPE)" doc="lidar_type [a1,4ROS]"/>
+    <!-- 启动base.launch文件 -->
+    <!-- Launch the base.launch file -->
+    <include file="$(find yahboomcar_laser)/launch/base.launch"/>
+    <!-- 启动激光雷达避障节点 -->
+    <!-- Activate lidar obstacle avoidance node -->
+    <node name='obstacle_laser' pkg="yahboomcar_carry_robot" type="laser.py" required="true" output="screen" if="$(eval arg('lidar_type') == 'x3')"/>
+    <node name='obstacle_laser' pkg="yahboomcar_carry_robot" type="laser.py" required="true" output="screen" if="$(eval arg('lidar_type') == 'a1')"/>
+</launch>
