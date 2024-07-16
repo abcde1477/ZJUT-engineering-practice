@@ -13,12 +13,12 @@ from DoubleBFS import get_path_using_DBFS
 real_move = True
 real_light_buzzer = True
 real_laser = True
+QR_camera = True
 
 #
 bot = None
 if real_move or real_light_buzzer:
     from Rosmaster_Lib import Rosmaster
-
     bot = Rosmaster()
 
 if real_move:
@@ -30,7 +30,8 @@ if real_light_buzzer:
 if real_laser:
     from std_msgs.msg import String
 
-move_dist = 3
+if QR_camera:
+    from QR import *
 
 DirectionUP = [-1, 0]
 DirectionLEFT = [0, -1]
@@ -385,8 +386,14 @@ class CarControl:
             go -= 1
 
     def work(self):
+
         # 从服务器获取任务
         while True:
+            # 扫描一次二维码
+            if QR_camera:
+                self.network.scan_QRcode(cap)
+
+            # 获取任务
             task = self.network.get_task()
             if task:
                 if task['task_type'] == "fetch":
@@ -404,7 +411,6 @@ class CarControl:
                     light_go_back_start()
                     self._go(self.return_location)
                     light_go_back_over()
-
 
                 elif task['task_type'] == "directlyControl":
                     self._directlyControl(task['turn'], task['go_ahead'])
@@ -431,7 +437,7 @@ class NetworkInteract:
 
         self.test_counter = -1 
         self.obstacle_clear_test_counter = 0
-
+        self.QR_url = url + "/receive-qrcode"
     def get_task(self):
         use = 0
         if use == 0:
@@ -483,7 +489,8 @@ class NetworkInteract:
                 }
             else:
                 return None
-
+    def scan_QRcode(self,cap):
+        capture_and_send_qr_code(cap,self.QR_url)
     def send_map(self, map_ref):
         response = requests.post(self.post_map_url, json=map_ref)
 
