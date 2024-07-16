@@ -17,7 +17,7 @@ ws为小车执行逻辑代码，雷达功能封装ROS功能包中，carry_robot.
 ## 启动方式
 `roscore`启动ROS核心  
 `rolaunch yahboomcar_carry_robot obstacle_laser.lanuch`启动雷达避障功能
-`python ws/src/yahboomcar_carry_robot/scripts/carry_robot.py`启动小车  
 `node node-server/server.js`启动后端服务器
+`python ws/src/yahboomcar_carry_robot/scripts/carry_robot.py`启动小车  
 
 小车代码会阻塞的对后端服务器请求，如果后端服务器没有运行，小车将无法正常运行。
