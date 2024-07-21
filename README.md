@@ -9,15 +9,25 @@
 ## 小组设计
 我们的小组设计是一个智能货运机器人。在矩阵地图中执行取货指令，在地图中自行寻路，到达指定地点后返回。
 
+简略软件架构图:
+![软件架构](./image/软件架构.png "软件架构")
+
+小车运行设计:
+![状态转移图](./image/状态转移图.png "状态转移图(简略)")
+
+小车任务执行的具体逻辑:
+![小车运行逻辑](./image/小车运行逻辑.png "小车运行逻辑")
+
 ## 代码存放
-node-server为服务器部分代码，使用node.js  
-vuetify-project为前端代码，使用vue框架  
-ws为小车执行逻辑代码，雷达功能封装ROS功能包中，carry_robot.py是小车执行代码的运行脚本
+node-server/为服务器部分代码，使用node.js  
+vuetify-project/为前端代码，使用vue框架  
+ws/为小车执行逻辑代码，雷达功能封装ROS功能包中，carry_robot.py是小车执行代码的运行脚本
 
 ## 启动方式
 `roscore`启动ROS核心  
-`rolaunch yahboomcar_carry_robot obstacle_laser.lanuch`启动雷达避障功能
-`node node-server/server.js`启动后端服务器
+`rolaunch yahboomcar_carry_robot obstacle_laser.lanuch`启动雷达避障功能  
+`node node-server/server.js`启动后端服务器  
 `python ws/src/yahboomcar_carry_robot/scripts/carry_robot.py`启动小车  
 
-小车代码会阻塞的对后端服务器请求，如果后端服务器没有运行，小车将无法正常运行。
+小车代码会阻塞的对后端服务器请求，如果后端服务器没有运行，小车将无法正常运行。  
+小车代码会阻塞的等待并获取雷达避障信息，如雷达避障功能没有启动，小车将持续等待
